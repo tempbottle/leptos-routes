@@ -26,7 +26,8 @@ pub mod routes {
 ## What does it do?
 
 The `routes` proc-macro parses the module hierarchy and generates a struct for each individual route in your
-application. You can access these routes through your `routes` and any of its submodules. The structure will be kept.
+application. You can access these routes through your `routes` module and any of its submodules. The structure will be
+kept.
 
 ```rust
 let users_route = routes::Users;
