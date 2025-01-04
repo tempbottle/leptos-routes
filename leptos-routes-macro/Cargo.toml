@@ -24,7 +24,7 @@ path = "tests/progress.rs"
 proc-macro2 = { workspace = true }
 quote = { workspace = true }
 syn = { workspace = true }
-leptos_router = "0.7.2"
+leptos_router = "0.7.3"
 
 [dev-dependencies]
 assertr = { git = "https://github.com/lpotthast/assertr", branch = "main" }
