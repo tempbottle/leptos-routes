@@ -14,8 +14,10 @@ pub mod routes {
 
     #[route("/users")]
     pub mod users {
+      
         #[route("/:id")]
         pub mod user {
+          
             #[route("/details")]
             pub mod details {}
         }
@@ -26,30 +28,40 @@ pub mod routes {
 ## What does it do?
 
 The `routes` proc-macro parses the module hierarchy and generates a struct for each individual route in your
-application. You can access these routes through your `routes` module and any of its submodules. The structure will be
-kept.
+application. You can access these routes through your `routes` module and any of its submodules.
+
+The example above will create the following structs (the module names determine the struct names, the module hierarchy
+will be kept.):
 
 ```rust
-let users_route = routes::Users;
-let details_route = routes::users::user::Details;
+let _ = routes::Root;
+let _ = routes::Users;
+let _ = routes::users::User;
+let _ = routes::users::user::Details;
 ```
 
-Each of these structs implements the following function:
+Each of these structs implements the following functions:
 
 - `path() -> Segments`, where `Segments` is a dynamically sized tuple based on the amount of segments present in the
-  path passed to `route`. This only returns the segments declared on the mod itself. Not all its prent segments. This
-  makes this usable in places where you otherwise would have used the`path!` macro from `leptos_router`, for example
-  when declaring your `<Router>`!
+  path passed to `route`. This only returns the segments declared on the currently evaluated `mod` itself and does not
+  also include all of its prent segments.
+
+  This makes `path` usable in `<Route>` declarations, where you otherwise would have directly used the `path!` macro
+  from `leptos_router`, or anywhere else where some kind of `Segments` are required.
   ```rust
   use assertr::prelude::*;
   assert_that(routes::users::User.path()).is_equal_to((ParamSegment("id"),));
   ```
-  or anywhere else where some kind of `Segments` are required.
 
-- `materialize(...) -> String` materializes a usable URL from the full path (including all parent segments) usable in,
-  for example, links to parts of your application. As String is `IntoHref`, the return value can be used anywhere an
-  `IntoHref` is required. This function is automatically generated to take all necessary user-inputs in order to replace
-  all dynamic path segments with concrete values. So this might take 0-n inputs when the full route has n path segments.
+- `materialize(...) -> String` materializes a usable URL path from the full list of path-segments, including all parent
+  segments.
+
+  Use it to create links to parts of your application. As `IntoHref` is implemented for `String`, the return value can
+  be used anywhere an `IntoHref` is required, for example Leptos's `<A>` component!
+
+  This function is automatically generated to take all necessary user-inputs in order to replace
+  all dynamic path segments with concrete values, meaning that `materialize` might take 0-n inputs when the full path
+  has n segments.
   ```rust
   use assertr::prelude::*;
   assert_that(routes::users::user::Details.materialize("42")).is_equal_to("/users/42/details");
