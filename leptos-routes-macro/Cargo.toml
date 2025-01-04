@@ -1,0 +1,32 @@
+[package]
+name = "leptos-routes-macro"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.70"
+authors = ["Lukas Potthast <privat@lukas-potthast.de>"]
+license = "MIT OR Apache-2.0"
+readme = "../README.md"
+repository = "https://github.com/lpotthast/leptos-routes"
+description = """
+Proc macro deriving route structs for the leptos-routes crate.
+"""
+categories = ["web-programming", "gui"]
+keywords = ["leptos-routes", "leptos", "routes", "routing", "router"]
+
+[lib]
+proc-macro = true
+
+[[test]]
+name = "tests"
+path = "tests/progress.rs"
+
+[dependencies]
+proc-macro2 = { workspace = true }
+quote = { workspace = true }
+syn = { workspace = true }
+leptos_router = "0.7.2"
+
+[dev-dependencies]
+assertr = { git = "https://github.com/lpotthast/assertr", branch = "main" }
+leptos-routes = { path = "../leptos-routes" }
+trybuild = { version = "1.0.99", features = ["diff"] }

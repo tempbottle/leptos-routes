@@ -1,0 +1,17 @@
+[package]
+name = "leptos-routes"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.70"
+authors = ["Lukas Potthast <privat@lukas-potthast.de>"]
+license = "MIT OR Apache-2.0"
+readme = "../README.md"
+repository = "https://github.com/lpotthast/leptos-routes"
+description = """
+Fluent route declarations for the Leptos web framework.
+"""
+categories = ["web-programming", "gui"]
+keywords = ["leptos-routes", "leptos", "routes", "routing", "router"]
+
+[dependencies]
+leptos-routes-macro = { version = "0.1.0", path = "../leptos-routes-macro" }
