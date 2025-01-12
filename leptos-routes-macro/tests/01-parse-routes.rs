@@ -5,6 +5,10 @@ use leptos_routes::routes;
 #[routes]
 pub mod routes {
 
+    // A route without any segment.
+    #[route("/")]
+    pub mod root {}
+
     // A route with a single static segments.
     #[route("/welcome")]
     pub mod welcome {}
@@ -36,6 +40,9 @@ pub mod routes {
 }
 
 fn main() {
+    assert_that(routes::Root.path()).is_equal_to(());
+    assert_that(routes::Root.materialize()).is_equal_to("/");
+
     assert_that(routes::Welcome.path()).is_equal_to((StaticSegment("welcome"),));
     assert_that(routes::Welcome.materialize()).is_equal_to("/welcome");
 

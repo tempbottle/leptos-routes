@@ -109,6 +109,10 @@ pub fn routes(_attr: TokenStream, input: TokenStream) -> TokenStream {
             format_str: &mut String,
             format_args: &mut Vec<proc_macro2::TokenStream>,
         ) {
+            if segments.is_empty() {
+                format_str.push_str("/");
+                return;
+            }
             for (i, seg) in segments.iter().enumerate() {
                 let segment_var = format_ident!("segment_{}", i);
                 match seg {
