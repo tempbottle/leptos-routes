@@ -381,7 +381,7 @@ pub fn routes(args: TokenStream, input: TokenStream) -> TokenStream {
             ///
             /// Use `#[routes(with_views, fallback="SomeComponent")] ...`
             /// for this function to be generated.
-            pub fn generatedRoutes() -> ! {
+            pub fn generated_routes() -> ! {
                 unimplemented!();
             }
         }
@@ -474,7 +474,7 @@ fn generate_routes_component(
     }
 
     quote! {
-        pub fn generatedRoutes() -> impl ::leptos::IntoView {
+        pub fn generated_routes() -> impl ::leptos::IntoView {
             use ::leptos_router::components::Routes;
             use ::leptos_router::components::ParentRoute;
             use ::leptos_router::components::Route;

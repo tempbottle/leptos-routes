@@ -136,7 +136,7 @@ fn main() {
     fn app() -> impl IntoView {
         view! {
             <Router>
-                { routes::generatedRoutes() }
+                { routes::generated_routes() }
             </Router>
         }
     }

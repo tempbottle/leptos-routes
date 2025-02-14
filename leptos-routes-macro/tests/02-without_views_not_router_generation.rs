@@ -12,7 +12,7 @@ pub mod routes {
 fn main() {
     // Assumption: `generatedRoutes` is generated but immediately panics using `unimplemented!`.
     assert_that_panic_by(|| {
-        let _never = routes::generatedRoutes();
+        let _never = routes::generated_routes();
     })
     .has_type::<&str>()
     .is_equal_to("not implemented");
