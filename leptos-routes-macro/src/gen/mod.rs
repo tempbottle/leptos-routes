@@ -1,10 +1,9 @@
 use crate::gen::all_routes_enum::generate_route_enum;
 use crate::gen::route_struct::generate_route_struct;
-use crate::gen::router::generate_routes_component;
+use crate::gen::router::maybe_generate_routes_component;
 use crate::route_def::{flatten, RouteDef};
 use crate::RoutesMacroArgs;
 use proc_macro_error2::abort_call_site;
-use quote::quote;
 use syn::{Item, ItemMod};
 
 pub mod all_routes_enum;
@@ -24,24 +23,13 @@ pub fn gen_impls(root_mod: &mut ItemMod, args: RoutesMacroArgs, route_defs: Vec<
     }
 
     // Generate a "Route" enum listing all possible routes.
-    let all_routes_enum = generate_route_enum(&route_defs);
-    insert_into_module(root_mod, all_routes_enum);
+    insert_into_module(root_mod, generate_route_enum(&route_defs));
 
     // Generate a "Router" implementation.
-    let routes_fn = if args.with_views {
-        generate_routes_component(&route_defs, args.fallback) // .map(|f| syn::parse_str(f.suffix()).unwrap())
-    } else {
-        quote! {
-            /// Not implemented!
-            ///
-            /// Use `#[routes(with_views, fallback="SomeComponent")] ...`
-            /// for this function to be generated.
-            pub fn generated_routes() -> ! {
-                unimplemented!();
-            }
-        }
-    };
-    insert_into_module(root_mod, routes_fn);
+    insert_into_module(
+        root_mod,
+        maybe_generate_routes_component(&args, &route_defs),
+    );
 }
 
 pub fn find_src_module<'a>(

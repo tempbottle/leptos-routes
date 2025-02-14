@@ -1,7 +1,26 @@
 use crate::route_def::RouteDef;
-use crate::ExprWrapper;
+use crate::{ExprWrapper, RoutesMacroArgs};
 use proc_macro_error2::abort;
 use quote::quote;
+
+pub fn maybe_generate_routes_component(
+    args: &RoutesMacroArgs,
+    route_defs: &[RouteDef],
+) -> proc_macro2::TokenStream {
+    if args.with_views {
+        generate_routes_component(route_defs, args.fallback.clone())
+    } else {
+        quote! {
+            /// Not implemented!
+            ///
+            /// Use `#[routes(with_views, fallback="SomeComponent")] ...`
+            /// for this function to be generated.
+            pub fn generated_routes() -> ! {
+                unimplemented!();
+            }
+        }
+    }
+}
 
 pub fn generate_routes_component(
     route_defs: &[RouteDef],
