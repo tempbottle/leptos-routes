@@ -43,7 +43,17 @@ impl RouteMacroArgs {
                         let lookahead = input.lookahead1();
                         if lookahead.peek(syn::LitStr) {
                             let lit: syn::LitStr = input.parse()?;
-                            path = Some(lit.value());
+                            let val = lit.value();
+                            if !val.starts_with('/') {
+                                abort!(lit.span(), "Every path must start with a '/'. Add a leading '/'.");
+                            }
+                            if val.ends_with('/') && val.len() > 1 {
+                                abort!(lit.span(), "No path should end with a '/'. Remove the trailing '/'.");
+                            }
+                            if val.contains("//") {
+                                abort!(lit.span(), "Separate each part with one '/'. Coalesce consecutive slashes into one.");
+                            }
+                            path = Some(val);
                         } else if lookahead.peek(syn::Ident) {
                             let ident: syn::Ident = input.parse()?;
                             if ident == "view" {

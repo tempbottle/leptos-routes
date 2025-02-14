@@ -148,6 +148,21 @@ pub fn routes(args: TokenStream, input: TokenStream) -> TokenStream {
     Into::into(quote! { #root_mod })
 }
 
+fn add_additional_imports_to_modules(module: &mut ItemMod) {
+    if let Some((_, items)) = &mut module.content {
+        let imports: Item = syn::parse_quote! {
+            use ::leptos_routes::route;
+        };
+        items.insert(0, imports);
+
+        for item in items.iter_mut() {
+            if let Item::Mod(child_module) = item {
+                add_additional_imports_to_modules(child_module);
+            }
+        }
+    }
+}
+
 fn collect_route_definitions(
     module: &ItemMod,
     parent_path: Option<&str>,
@@ -209,19 +224,4 @@ fn collect_route_definitions(
         }
     }
     route_defs.push(route_def);
-}
-
-fn add_additional_imports_to_modules(module: &mut ItemMod) {
-    if let Some((_, items)) = &mut module.content {
-        let imports: Item = syn::parse_quote! {
-            use ::leptos_routes::route;
-        };
-        items.insert(0, imports);
-
-        for item in items.iter_mut() {
-            if let Item::Mod(child_module) = item {
-                add_additional_imports_to_modules(child_module);
-            }
-        }
-    }
 }
