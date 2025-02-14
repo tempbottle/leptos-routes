@@ -747,6 +747,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "itertools"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b192c782037fadd9cfa75548310488aabdbf3d2da73885b31bd0abd03351285"
+dependencies = [
+ "either",
+]
+
+[[package]]
 name = "itoa"
 version = "1.0.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -810,13 +819,16 @@ version = "0.1.0"
 dependencies = [
  "assertr",
  "darling",
+ "itertools 0.14.0",
  "leptos",
  "leptos-routes",
  "leptos_router",
+ "proc-macro-error2",
  "proc-macro2",
  "quote",
  "syn",
  "trybuild",
+ "uuid",
 ]
 
 [[package]]
@@ -875,7 +887,7 @@ dependencies = [
  "cfg-if",
  "convert_case",
  "html-escape",
- "itertools",
+ "itertools 0.13.0",
  "leptos_hot_reload",
  "prettyplease",
  "proc-macro-error2",
@@ -1337,7 +1349,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "74c3d2a20d8edd8ac6628718209f743da86349d7f10a4458304666c2ddfc082e"
 dependencies = [
  "guardian",
- "itertools",
+ "itertools 0.13.0",
  "or_poisoned",
  "paste",
  "reactive_graph",
@@ -1645,7 +1657,7 @@ dependencies = [
  "futures",
  "html-escape",
  "indexmap",
- "itertools",
+ "itertools 0.13.0",
  "js-sys",
  "linear-map",
  "next_tuple",
