@@ -19,12 +19,12 @@ pub fn gen_impls(root_mod: &mut ItemMod, args: RoutesMacroArgs, route_defs: Vec<
 
         try_insert_into_module(
             root_mod,
-            &route_def.found_in_module_path.without_first(),
+            route_def.found_in_module_path.without_first(),
             struct_def,
         );
         try_insert_into_module(
             root_mod,
-            &route_def.found_in_module_path.without_first(),
+            route_def.found_in_module_path.without_first(),
             struct_impl,
         );
     }

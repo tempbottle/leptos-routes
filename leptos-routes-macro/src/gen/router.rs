@@ -37,13 +37,11 @@ pub fn generate_routes_component(
                     ts.extend([quote! {
                         <Route path=::leptos_router::path!("") #fallback/>
                     }]);
-                } else {
-                    if route_def.view.is_some() {
-                        abort!(
-                            route_def.view_span.expect("present"),
-                            "Any #[route] with child routes requires a \"layout\" and an optional \"fallback\". \"view\" must only be set on leaf routes. Replace \"view\" with \"fallback\" or remove the argument."
-                        );
-                    }
+                } else if route_def.view.is_some() {
+                    abort!(
+                        route_def.view_span.expect("present"),
+                        "Any #[route] with child routes requires a \"layout\" and an optional \"fallback\". \"view\" must only be set on leaf routes. Replace \"view\" with \"fallback\" or remove the argument."
+                    );
                 }
             }
             ts.extend([quote! {

@@ -6,14 +6,14 @@ use quote::{format_ident, quote};
 // For the format string, we need to handle both:
 // 1. The original path segments from self.path() for static segments
 // 2. The function parameters for dynamic segments
-fn create(
+fn create_format(
     segments: &PathSegments,
     format_str: &mut String,
     format_args: &mut Vec<proc_macro2::TokenStream>,
     has_parent_with_empty_path: bool,
 ) {
     if segments.segments.is_empty() {
-        format_str.push_str("/");
+        format_str.push('/');
         return;
     }
     for (i, seg) in segments.segments.iter().enumerate() {
@@ -80,7 +80,7 @@ pub fn generate_route_struct(
 
     let struct_impl = match &route_def.parent_struct {
         Some((parent_path, parent)) => {
-            let all_params = ParamInfo::collect_params_through_hierarchy(&route_defs, route_def);
+            let all_params = ParamInfo::collect_params_through_hierarchy(route_defs, route_def);
 
             let params = all_params.iter().map(|p| {
                 let name = format_ident!("{}", sanitize_identifier(&p.name));
@@ -107,8 +107,8 @@ pub fn generate_route_struct(
             let mut format_str = String::new();
             format_str.push_str("{}"); // Capturing the parent path!
             let mut format_args = Vec::new();
-            create(
-                &path_segments,
+            create_format(
+                path_segments,
                 &mut format_str,
                 &mut format_args,
                 parent_path.is_empty() || parent_path == "/",
@@ -163,7 +163,7 @@ pub fn generate_route_struct(
 
             let mut format_str = String::new();
             let mut format_args = Vec::new();
-            create(&path_segments, &mut format_str, &mut format_args, false);
+            create_format(path_segments, &mut format_str, &mut format_args, false);
 
             quote! {
                 impl #struct_name {

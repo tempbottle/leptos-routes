@@ -1,7 +1,7 @@
 use crate::path::PathSegments;
 use crate::ModulePath;
-use std::iter::from_fn;
 use proc_macro2::Span;
+use std::iter::from_fn;
 use syn::{Expr, PathArguments, Visibility};
 use uuid::Uuid;
 
@@ -54,7 +54,7 @@ impl RouteDef {
                 full_path = Some(prev);
             }
         }
-        let full_path = full_path
+        full_path
             .map(|mut it| {
                 it.segments.push(syn::PathSegment {
                     ident: struct_name.clone(),
@@ -62,8 +62,7 @@ impl RouteDef {
                 });
                 it
             })
-            .unwrap_or(struct_name.clone().into());
-        full_path
+            .unwrap_or(struct_name.clone().into())
     }
 }
 
@@ -71,7 +70,7 @@ pub fn flatten(root_route_defs: &[RouteDef]) -> impl Iterator<Item = &RouteDef> 
     let mut stack = Vec::new();
     stack.extend(root_route_defs);
     from_fn(move || {
-        while let Some(node) = stack.pop() {
+        if let Some(node) = stack.pop() {
             stack.extend(node.children.as_slice());
             return Some(node);
         }
