@@ -808,14 +808,14 @@ dependencies = [
 
 [[package]]
 name = "leptos-routes"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "leptos-routes-macro",
 ]
 
 [[package]]
 name = "leptos-routes-macro"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "assertr",
  "darling",
