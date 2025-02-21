@@ -1,5 +1,5 @@
 mod expr_wrapper;
-mod gen;
+mod generate;
 mod module_path;
 mod path;
 mod route_def;
@@ -171,7 +171,7 @@ pub fn routes(args: TokenStream, input: TokenStream) -> TokenStream {
         }
     }
 
-    gen::gen_impls(&mut root_mod, args, route_defs);
+    generate::impls(&mut root_mod, args, route_defs);
 
     let (brace, ref mut content) = match root_mod.content {
         Some((brace, ref mut content)) => (brace, content),
