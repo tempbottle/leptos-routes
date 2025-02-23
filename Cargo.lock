@@ -799,14 +799,14 @@ dependencies = [
 
 [[package]]
 name = "leptos-routes"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "leptos-routes-macro",
 ]
 
 [[package]]
 name = "leptos-routes-macro"
-version = "0.3.0"
+version = "0.3.1"
 dependencies = [
  "assertr",
  "darling",
