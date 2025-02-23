@@ -4,13 +4,20 @@ use crate::generate::router::maybe_generate_routes_component;
 use crate::route_def::{flatten, RouteDef};
 use crate::RoutesMacroArgs;
 use proc_macro_error2::abort_call_site;
-use syn::{Item, ItemMod};
+use syn::{parse_quote, Attribute, Item, ItemMod};
 
 pub mod all_routes_enum;
 pub mod route_struct;
 pub mod router;
 
 pub fn impls(root_mod: &mut ItemMod, args: RoutesMacroArgs, route_defs: Vec<RouteDef>) {
+    // A common pattern could be to add a root-level `routes.rs` file containing the `#[routes]`
+    // annotated inline-defined `routes` module.
+    // Clippy does not like this nesting of similarly named modules. As it generally should!
+    // For this special case, not letting the lint pop up for many users, we explicitly allow it.
+    let allow_module_inception: Attribute = parse_quote!(#[allow(clippy::module_inception)]);
+    root_mod.attrs.push(allow_module_inception);
+
     // Generate the individual route structs.
     for route_def in flatten(&route_defs) {
         let (struct_def, struct_impl) = generate_route_struct(route_def, &route_defs);
