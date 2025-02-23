@@ -202,3 +202,7 @@ and also create links with the same structs as in
 Run all tests of all creates using the `--all` flag when in the root directory:
 
     cargo test --all
+
+## MSRV
+
+1.85.0 (as of v0.3) - upgrade to the 2024 edition
