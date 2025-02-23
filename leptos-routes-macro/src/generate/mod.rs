@@ -1,6 +1,6 @@
-use crate::gen::all_routes_enum::generate_route_enum;
-use crate::gen::route_struct::generate_route_struct;
-use crate::gen::router::maybe_generate_routes_component;
+use crate::generate::all_routes_enum::generate_route_enum;
+use crate::generate::route_struct::generate_route_struct;
+use crate::generate::router::maybe_generate_routes_component;
 use crate::route_def::{flatten, RouteDef};
 use crate::RoutesMacroArgs;
 use proc_macro_error2::abort_call_site;
@@ -10,7 +10,7 @@ pub mod all_routes_enum;
 pub mod route_struct;
 pub mod router;
 
-pub fn gen_impls(root_mod: &mut ItemMod, args: RoutesMacroArgs, route_defs: Vec<RouteDef>) {
+pub fn impls(root_mod: &mut ItemMod, args: RoutesMacroArgs, route_defs: Vec<RouteDef>) {
     // Generate the individual route structs.
     for route_def in flatten(&route_defs) {
         let (struct_def, struct_impl) = generate_route_struct(route_def, &route_defs);

@@ -1,8 +1,8 @@
 [package]
 name = "leptos-routes"
-version = "0.2.0"
-edition = "2021"
-rust-version = "1.70"
+version = "0.3.0"
+edition = "2024"
+rust-version = "1.85"
 authors = ["Lukas Potthast <privat@lukas-potthast.de>"]
 license = "MIT OR Apache-2.0"
 readme = "../README.md"
@@ -14,4 +14,4 @@ categories = ["web-programming", "gui"]
 keywords = ["leptos-routes", "leptos", "routes", "routing", "router"]
 
 [dependencies]
-leptos-routes-macro = { version = "0.2.0", path = "../leptos-routes-macro" }
+leptos-routes-macro = { version = "0.3.0", path = "../leptos-routes-macro" }
