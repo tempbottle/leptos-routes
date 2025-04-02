@@ -22,7 +22,7 @@ path = "tests/progress.rs"
 
 [dependencies]
 darling = "0.20.10"
-leptos_router = "0.7.3"
+leptos_router = "0.7"
 proc-macro-error2 = "2.0.1"
 proc-macro2 = { workspace = true }
 quote = { workspace = true }
@@ -33,5 +33,5 @@ uuid = { version = "1.13.1", features = ["v4"] }
 assertr = "0.1.0"
 leptos = { version = "0.7.7", features = ["ssr"] }
 leptos-routes = { path = "../leptos-routes" }
-leptos_router = { version = "0.7.7", features = ["ssr"] }
+leptos_router = { version = "0.7", features = ["ssr"] }
 trybuild = { version = "1.0.99", features = ["diff"] }
