@@ -27,7 +27,7 @@ proc-macro-error2 = "2.0.1"
 proc-macro2 = { workspace = true }
 quote = { workspace = true }
 syn = { workspace = true }
-uuid = { version = "1.13.1", features = ["v4"] }
+uuid = { version = "1.16", features = ["v4"] }
 
 [dev-dependencies]
 assertr = "0.1.0"
